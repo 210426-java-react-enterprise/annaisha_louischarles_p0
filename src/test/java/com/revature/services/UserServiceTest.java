@@ -1,4 +1,4 @@
-package com.revature.quizzard.services;
+package java.com.revature.services;
 
 import com.revature.intro.daos.UserDao;
 import com.revature.quizzard.exceptions.InvalidRequestException;

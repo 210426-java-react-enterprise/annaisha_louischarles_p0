@@ -1,4 +1,4 @@
-package com.revature.BankApp.util;
+package java.com.revature.util;
 
 import com.revature.intro.util.ConnectionFactory;
 import org.junit.Assert;

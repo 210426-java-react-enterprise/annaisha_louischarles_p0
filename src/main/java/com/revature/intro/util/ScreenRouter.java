@@ -18,11 +18,7 @@ public class ScreenRouter {
             if (screen.getRoute().equals(route)) { //note that this is calling screen not screens.
                 screen.render();
                 //get(i) on linkedlist will get you a screen, with that in hand you can getRoute from Screen.java,
-<<<<<<< HEAD
                 //If the culmination of the screen and route of the screen equals the parameters of navigate
-=======
-                //If the culmonation of the screen and route of the screen equals the parameters of navigate
->>>>>>> a810b6d56a64f769524cce173fbb1cacab1d3173
                 //you can do just that.and invoke that screens render method.
             }
 

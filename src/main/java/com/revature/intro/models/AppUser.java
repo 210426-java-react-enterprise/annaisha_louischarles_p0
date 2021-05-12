@@ -6,7 +6,7 @@ import java.time.format.FormatStyle;
 
 public class AppUser { //this is a pojo with getters and setters
 
-<<<<<<< HEAD
+
     private String customerId;
     private String firstName;
     private String lastName;
@@ -15,16 +15,6 @@ public class AppUser { //this is a pojo with getters and setters
     private String password;
     private LocalDate dob;
     private String heroStatus;
-=======
-    private String id;
-    private String firstName;
-    private String lastName;
-    private LocalDate dob;
-    private String email;
-    private String username;
-    private String password;
-    private String currentStatus;
->>>>>>> a810b6d56a64f769524cce173fbb1cacab1d3173
 
 
     public AppUser() {
@@ -33,7 +23,6 @@ public class AppUser { //this is a pojo with getters and setters
 
 
     public AppUser(String firstName, String lastName, String email,
-<<<<<<< HEAD
                    String username, String password, LocalDate dob, String heroStatus) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -43,16 +32,6 @@ public class AppUser { //this is a pojo with getters and setters
         this.dob = dob;
         this.heroStatus = heroStatus;
 
-=======
-                   String username, String password, LocalDate dob, String currentStatus) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dob = dob;
-        this.email = email;
-        this.username = username;
-        this.password = password;
-        this.currentStatus = currentStatus;
->>>>>>> a810b6d56a64f769524cce173fbb1cacab1d3173
     }
 
 
@@ -104,7 +83,6 @@ public class AppUser { //this is a pojo with getters and setters
         this.dob = LocalDate.parse(dob);
     }
 
-<<<<<<< HEAD
     public String getCustomerId() {
         return customerId;
     }
@@ -122,30 +100,10 @@ public class AppUser { //this is a pojo with getters and setters
     }
 
     public String toFileString() {
-        return String.format(";%s;%s;%s;%s;%s;%s;%d", firstName, lastName, username, password, email, dob);
-=======
-    public String getCurrentStatus() {
-        return currentStatus;
+        return String.format(";%s;%s;%s;%s;%s;%d;%s", firstName, lastName, username, password, email, dob, heroStatus);
+
+
     }
-
-    public void setCurrentStatus(String currentStatus) {
-        this.currentStatus = currentStatus;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String toFileString() {
-        return String.format("%s;%s;%s;%s;%s;%s;%s;%d", currentStatus, firstName, lastName, username, password, email, dob);
->>>>>>> a810b6d56a64f769524cce173fbb1cacab1d3173
-    }
-
-
 }
 
 //the equivalent to the above is

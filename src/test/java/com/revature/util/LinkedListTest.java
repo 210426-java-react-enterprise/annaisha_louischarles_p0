@@ -1,4 +1,4 @@
-package com.revature.BankApp.util;
+package java.com.revature.util;
 
 public class LinkedListTest {
 

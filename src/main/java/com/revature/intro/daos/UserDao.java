@@ -14,10 +14,6 @@ public class UserDao {
     BufferedReader br;
 
 
-<<<<<<< HEAD
-=======
-    // TODO (Associate task) Implement me! call it save or insert User //to do
->>>>>>> a810b6d56a64f769524cce173fbb1cacab1d3173
     public AppUser save(AppUser newUser) {
 
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
@@ -30,12 +26,10 @@ public class UserDao {
             pstmt.setString(4, newUser.getFirstName());
             pstmt.setString(5, newUser.getLastName());
             pstmt.setString(6, newUser.getDob());
-<<<<<<< HEAD
             pstmt.setString(7, newUser.getHeroStatus());
             pstmt.executeUpdate();
-=======
-            pstmt.setString(7, newUser.getCurrentStatus());
->>>>>>> a810b6d56a64f769524cce173fbb1cacab1d3173
+
+
             int rowsInserted = pstmt.executeUpdate();
 
             if (rowsInserted != 0) {
@@ -105,21 +99,14 @@ public class UserDao {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 user = new AppUser();
-<<<<<<< HEAD
+
                 user.setId(String.valueOf(rs.getInt("customer_id"))); //to change later
-=======
-                user.setId(String.valueOf(rs.getInt("id"))); //to change later
->>>>>>> a810b6d56a64f769524cce173fbb1cacab1d3173
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
                 user.setFirstName(rs.getString("first_name"));
                 user.setLastName(rs.getString("last_name"));
                 user.setEmail(rs.getString("email"));
-<<<<<<< HEAD
                 user.setHeroStatus(rs.getString("hero_status"));
-=======
-                user.setCurrentStatus(rs.getString("current_status"));
->>>>>>> a810b6d56a64f769524cce173fbb1cacab1d3173
                 user.setDob(rs.getString("date_of_birth"));
             }
 

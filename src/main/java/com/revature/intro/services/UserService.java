@@ -42,14 +42,9 @@ public class UserService {
             return false;
         if (user.getLastName() == null || user.getLastName().trim().isEmpty() || user.getLastName().length() > 25)
             return false;
-<<<<<<< HEAD
         if (user.getHeroStatus() == null || user.getHeroStatus().trim().isEmpty() || user.getHeroStatus().equalsIgnoreCase("villian")
                 || user.getHeroStatus().length() > 9)
             return false;
-=======
-        if (user.getCurrentStatus() == null || user.getCurrentStatus().trim().isEmpty() || user.getCurrentStatus().equals("villian"))
-            return false;//need to work on this
->>>>>>> a810b6d56a64f769524cce173fbb1cacab1d3173
         if (user.getDob() == null || user.getDob().trim().isEmpty() || user.getUsername().length() > 10) return false;
 
         return true;
