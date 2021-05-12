@@ -35,6 +35,18 @@ public class TransactionScreen extends Screen {
         this.router = router;
     }
 
+<<<<<<< HEAD
+=======
+    public void displayMenu() {
+        System.out.println("\n----- Bank Account Menu ----\n");
+        System.out.println("   1. Get balance");
+        System.out.println("   2. Deposit");
+        System.out.println("   3. Withdraw");
+        System.out.println("   4. Display menu");
+        System.out.println("   5  Exit menu");
+    }
+
+>>>>>>> a810b6d56a64f769524cce173fbb1cacab1d3173
 
     @Override
     public void render() {
