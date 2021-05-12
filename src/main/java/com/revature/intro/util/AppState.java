@@ -5,6 +5,7 @@ import com.revature.intro.Screens.RegisterScreen;
 import com.revature.intro.Screens.TransactionScreen;
 import com.revature.intro.Screens.WelcomeScreen;
 import com.revature.intro.daos.UserDao;
+import com.revature.intro.services.UserService;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -14,6 +15,8 @@ public class AppState {
     private BufferedReader br;
     private ScreenRouter router;
     private boolean appRunning;
+    UserService userService;
+
 
 
     public AppState() {
@@ -24,11 +27,13 @@ public class AppState {
 
 
         final UserDao userDao = new UserDao();
+        final UserService userService = new UserService(userDao); //review this, as register screen req. this instance,
+        //but why pass in userdao
 
         router = new ScreenRouter(); //note you could have also said this.router, like the ones above and vice versa.
         router.addScreen(new WelcomeScreen(br, router))
-                .addScreen(new LoginScreen(br, router))
-                .addScreen(new RegisterScreen(br, router)) //do the same here that you did for Welcome and Login making its instantiation dependent on the router.
+                .addScreen(new LoginScreen(br, router, userService))
+                .addScreen(new RegisterScreen(br, router, userService)) //do the same here that you did for Welcome and Login making its instantiation dependent on the router.
                 .addScreen(new TransactionScreen(br, router)) //do the same here that you did for Welcome and Login making its instantiation dependent on the router.
                 .addScreen(new BankAccount(br, router)); //trying to route a transactions screen from LOGIN.
     }

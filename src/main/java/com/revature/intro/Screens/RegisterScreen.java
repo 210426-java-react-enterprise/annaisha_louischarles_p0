@@ -20,14 +20,14 @@ public class RegisterScreen extends Screen {
 
     public BufferedReader br; //this reference here is for the method invocation below, so that it recognizes variable
 
-    private AppUser user;
+    private AppUser brandNewUser;
     private UserService userService;
 
     // Constructor
 
-    public RegisterScreen(BufferedReader br, ScreenRouter router) {
+    public RegisterScreen(BufferedReader br, ScreenRouter router, UserService userService) {
         super("RegisterScreen", "/register");
-
+        this.userService = userService;
         this.userdao = new UserDao();
         this.br = br;
     }
@@ -38,10 +38,8 @@ public class RegisterScreen extends Screen {
         String email;
         String username;
         String password;
-
         String heroStatus;
-
-        LocalDate dob;
+        int age;
 
         try {
             //risky code might throw exception
@@ -55,16 +53,14 @@ public class RegisterScreen extends Screen {
 //            if(userService.isUserValid(user))
 //            return;
 //            ;
-
-
             System.out.print("First Name: ");
             firstName = br.readLine();
 
             System.out.print("Last Name: ");
             lastName = br.readLine();
 
-            System.out.print("Enter date of birth yyyy-mm-dd: ");
-            dob = LocalDate.parse(br.readLine());
+            System.out.print("How old are you? ");
+            age = Integer.parseInt(br.readLine());
 
             System.out.print("Email: ");
             email = br.readLine();
@@ -78,10 +74,14 @@ public class RegisterScreen extends Screen {
             //public AppUser(String firstName, String lastName, String email, String username, String password,
             //     String dob, String currentStatus) {
 
-            AppUser brandNewUser = new AppUser(firstName, lastName, email, username, password,
-
-                    dob, heroStatus);
-
+            AppUser brandNewUser = new AppUser(heroStatus, firstName, lastName, age, email, username, password);
+            userService.register(brandNewUser);
+            //cool product of dependency injection.
+            //System.out.println("Before save:  " + brandNewUser);
+            //userdao.save(brandNewUser);
+            //System.out.println("After save: " + brandNewUser); //So you defined appUser and what that looks like to register
+//            //screen. Now here you are saying in userdao there is a method that saves, pass in what you've defined as newUser
+//            //to that save method.
             System.out.println("You have been registered, welcome " + username + "!");
             System.out.println("\n +------+------+--------+------+\n");
 
@@ -92,10 +92,10 @@ public class RegisterScreen extends Screen {
 
         } catch (InvalidRequestException | ResourcePersistenceException e) {
             //e.printStackTrace();
-            System.out.println("RegisterScreen -- InvalidRequestException!");
+            System.out.println("RegisterScreen -- InvalidRequestException! Invalid new user data provided.");
         } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println();
+           // e.printStackTrace();
+            //System.err.println();
         }
     }
 }

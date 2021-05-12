@@ -1,4 +1,4 @@
-package java.com.revature.services;
+package java.com.revature.intro.services;
 
 import com.revature.intro.daos.UserDao;
 import com.revature.quizzard.exceptions.InvalidRequestException;
@@ -104,7 +104,7 @@ public class UserServiceTest {
 // Stubbing
 //class UserDAOStub extends UserDAO {
 //    @Override
-//    public void save(AppUser newUser) {
+//    public void save(AppUser brandNewUser) {
 //        newUser.setId(1);
 //    }
 //

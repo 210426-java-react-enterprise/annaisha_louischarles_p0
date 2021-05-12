@@ -61,8 +61,8 @@ public class TransactionScreen extends Screen {
                     break;
 
                 case "3":
-                    processWithdrawal();
                     System.out.println("How much would you like to withdraw? ");
+                    processWithdrawal();
                     break;
 
                 case "4":

@@ -25,21 +25,4 @@ public class ScreenRouter {
         }
     }
 }
-//    protected String name;
-//    protected String route;
-//
-//    public void Screen(String name, String route) {
-//        this.name = name;
-//        this.route = route;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public String getRoute() {
-//        return route;
-//    }
-//
-//    public abstract void render();
 

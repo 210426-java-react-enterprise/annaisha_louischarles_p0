@@ -7,31 +7,34 @@ import java.time.format.FormatStyle;
 public class AppUser { //this is a pojo with getters and setters
 
 
-    private String customerId;
+    private int customerId;
+    private String heroStatus;
     private String firstName;
     private String lastName;
+    private int age;
     private String email;
     private String username;
     private String password;
-    private LocalDate dob;
-    private String heroStatus;
 
 
-    public AppUser() {
+    public AppUser(AppUser brandNewUser) {
         super();
     }
 
 
-    public AppUser(String firstName, String lastName, String email,
-                   String username, String password, LocalDate dob, String heroStatus) {
+    public AppUser(String heroStatus, String firstName, String lastName, int age, String email, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.age = age;
         this.email = email;
         this.username = username;
         this.password = password;
-        this.dob = dob;
         this.heroStatus = heroStatus;
 
+    }
+
+    public AppUser() {
+        super();
     }
 
 
@@ -75,19 +78,19 @@ public class AppUser { //this is a pojo with getters and setters
         this.lastName = lastName;
     }
 
-    public String getDob() { //format of yyyy/dd/month was not my first choice but provided I could not use java util. Date
-        return dob.toString();
+    public int getAge() {
+        return age;
     }
 
-    public void setDob(String dob) {
-        this.dob = LocalDate.parse(dob);
+    public void setAge(int age) {
+        this.age = age;
     }
 
-    public String getCustomerId() {
+    public int getCustomerId() {
         return customerId;
     }
 
-    public void setId(String customerId) {
+    public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
 
@@ -99,12 +102,28 @@ public class AppUser { //this is a pojo with getters and setters
         this.heroStatus = heroStatus;
     }
 
-    public String toFileString() {
-        return String.format(";%s;%s;%s;%s;%s;%d;%s", firstName, lastName, username, password, email, dob, heroStatus);
-
-
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("AppUser{");
+        sb.append("customerId='").append(customerId).append('\'');
+        sb.append(", heroStatus='").append(heroStatus).append('\'');
+        sb.append(", firstName='").append(firstName).append('\'');
+        sb.append(", lastName='").append(lastName).append('\'');
+        sb.append(", age=").append(age);
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", username='").append(username).append('\'');
+        sb.append(", password='").append(password).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }
+
+//    public String toFileString() {
+//        return String.format(";%s;%s;%s;%s;%s;%d;%s", firstName, lastName, username, password, email, dob, heroStatus);
+//
+//
+//    } //same as string builder above.
+
 
 //the equivalent to the above is
 //  @Override

@@ -14,28 +14,28 @@ public class UserDao {
     BufferedReader br;
 
 
-    public AppUser save(AppUser newUser) {
+    public AppUser save(AppUser brandNewUser) {
 
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
-            String sqlInsertUser = "insert into quizzard.users (current_status, username , password , email , first_name , last_name , dob ) values (?,?,?,?,?,?)";
-            PreparedStatement pstmt = conn.prepareStatement(sqlInsertUser, new String[]{"user_id"});
-            pstmt.setString(1, newUser.getUsername());
-            pstmt.setString(2, newUser.getPassword());
-            pstmt.setString(3, newUser.getEmail());
-            pstmt.setString(4, newUser.getFirstName());
-            pstmt.setString(5, newUser.getLastName());
-            pstmt.setString(6, newUser.getDob());
-            pstmt.setString(7, newUser.getHeroStatus());
-            pstmt.executeUpdate();
-
+            String sqlInsertUser = "insert into bank.customers (hero_status, first_name , last_name, age, email, username , password) values (?,?,?,?,?,?,?)";
+            PreparedStatement pstmt = conn.prepareStatement(sqlInsertUser, new String[]{"customer_id"});
+            pstmt.setString(1, brandNewUser.getHeroStatus());
+            pstmt.setString(2, brandNewUser.getFirstName());
+            pstmt.setString(3, brandNewUser.getLastName());
+            pstmt.setInt(4, brandNewUser.getAge());
+            pstmt.setString(5, brandNewUser.getEmail());
+            pstmt.setString(6, brandNewUser.getUsername());
+            pstmt.setString(7, brandNewUser.getPassword());
 
             int rowsInserted = pstmt.executeUpdate();
 
             if (rowsInserted != 0) {
                 ResultSet rs = pstmt.getGeneratedKeys();
                 while (rs.next()) {
-                    newUser.setId(String.valueOf(rs.getInt("user_id")));
+                    brandNewUser.setCustomerId(rs.getInt("customer_id")); //same as implementing a getbyID method.
+                    //you are asking for this particular column customerID, as the method auto generates keys connect that
+                    //with the user and what we defined as customer_id which in serialized to autoincrement and store.
                 }
             }
 
@@ -43,13 +43,13 @@ public class UserDao {
             throwables.printStackTrace();
         }
 
-        return newUser;
+        return brandNewUser;
     }
 
-    public boolean isUsernameAvailable(String username) {
+    public boolean isUsernameAvailable(String username) { //boolean is--- is a type of getter.
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
-            String sql = "select * from quizzard.users where username = ?";
+            String sql = "select * from customers where username = ?"; //This is the ONLY THING that ever changes.
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, username);
 
@@ -69,7 +69,7 @@ public class UserDao {
     public boolean isEmailAvailable(String email) {
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
-            String sql = "select * from quizzard.users where email = ?";
+            String sql = "select * from bank.customers where email = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, email);
 
@@ -87,11 +87,10 @@ public class UserDao {
 
     public AppUser findUserByUsernameAndPassword(String username, String password) {
 
-        AppUser user = null;
-
+        AppUser user = new AppUser();
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
-            String sql = "select * from quizzard.users where username = ? and password = ?";
+            String sql = "select * from bank.customers where usernames = ? and passwords = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, username);
             pstmt.setString(2, password);
@@ -99,22 +98,23 @@ public class UserDao {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 user = new AppUser();
-
-                user.setId(String.valueOf(rs.getInt("customer_id"))); //to change later
-                user.setUsername(rs.getString("username"));
-                user.setPassword(rs.getString("password"));
+                user.setCustomerId(rs.getInt("customer_id"));
+                user.setHeroStatus(rs.getString("hero_status"));
                 user.setFirstName(rs.getString("first_name"));
                 user.setLastName(rs.getString("last_name"));
+                user.setAge(rs.getInt("age"));
                 user.setEmail(rs.getString("email"));
-                user.setHeroStatus(rs.getString("hero_status"));
-                user.setDob(rs.getString("date_of_birth"));
+                user.setUsername(rs.getString("usernames"));
+                user.setPassword(rs.getString("passwords"));
+
+
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return user;
+        return null;
 
     }
 

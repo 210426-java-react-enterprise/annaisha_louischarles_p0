@@ -13,21 +13,22 @@ public class UserService {
         this.userDao = userDao;
     }
 
-    public AppUser register(AppUser newUser) throws InvalidRequestException, ResourcePersistenceException {
+    public AppUser register(AppUser brandNewUser) throws InvalidRequestException, ResourcePersistenceException {
 
-        if (!isUserValid(newUser)) {
+        if (!isUserValid(brandNewUser)) {
             throw new InvalidRequestException("Invalid new user data provided!");
         }
 
-        if (!userDao.isUsernameAvailable(newUser.getUsername())) {
+        if (!userDao.isUsernameAvailable(brandNewUser.getUsername())) {
             throw new ResourcePersistenceException("The provided username is already taken!");
         }
 
-        if (!userDao.isEmailAvailable(newUser.getEmail())) {
+        if (!userDao.isEmailAvailable(brandNewUser.getEmail())) {
             throw new ResourcePersistenceException("The provided email is already taken!");
         }
 
-        return userDao.save(newUser);
+        return userDao.save(brandNewUser);
+
 
     }
 
@@ -45,7 +46,7 @@ public class UserService {
         if (user.getHeroStatus() == null || user.getHeroStatus().trim().isEmpty() || user.getHeroStatus().equalsIgnoreCase("villian")
                 || user.getHeroStatus().length() > 9)
             return false;
-        if (user.getDob() == null || user.getDob().trim().isEmpty() || user.getUsername().length() > 10) return false;
+        if (user.getAge() < 18) return false;
 
         return true;
     }
