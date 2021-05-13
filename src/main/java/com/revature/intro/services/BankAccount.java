@@ -21,7 +21,10 @@ public class BankAccount {
     }
 
     public double getBalance() {
+        if(balance == 0)
+            System.out.println("Seems like your balance is low, we suggest making a deposit before moving forward...");
         return balance;
+
     }//use for transactions may be unnecessary
 
     public String currentBalance() {
