@@ -1,7 +1,10 @@
 package com.revature.intro.daos;
 
+import com.revature.intro.Screens.LoginScreen;
 import com.revature.intro.models.AppUser;
+import com.revature.intro.services.BankAccount;
 import com.revature.intro.util.ConnectionFactory;
+import com.sun.org.apache.bcel.internal.generic.ARETURN;
 
 import java.io.*;
 import java.sql.Connection;
@@ -9,16 +12,28 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-//double check
+/**UserDao: To access and persist data to and from an object relational database postgreSQL.
+ *
+ *
+ * AppUser save(@param: AppUser brandNewUser): method save, as defined in AppUser class sends new user input data to database.
+ * @return newUser
+ *
+ * update:
+ * A boolean whose goal is to update & persistence of data to a balance from a corresponding customerID identified from user.
+ *
+ * getBal:
+ * @return A double value of a user's current balance.
+ */
 public class UserDao {
     BufferedReader br;
+    private UserDao userDao;
 
 
     public AppUser save(AppUser brandNewUser) {
 
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
-            String sqlInsertUser = "insert into bank.customers (hero_status, first_name , last_name, age, email, username , password) values (?,?,?,?,?,?,?)";
+            String sqlInsertUser = "insert into bank.customers (hero_status, first_name , last_name, age, email, usernames, passwords) values (?,?,?,?,?,?,?)";
             PreparedStatement pstmt = conn.prepareStatement(sqlInsertUser, new String[]{"customer_id"});
             pstmt.setString(1, brandNewUser.getHeroStatus());
             pstmt.setString(2, brandNewUser.getFirstName());
@@ -27,7 +42,6 @@ public class UserDao {
             pstmt.setString(5, brandNewUser.getEmail());
             pstmt.setString(6, brandNewUser.getUsername());
             pstmt.setString(7, brandNewUser.getPassword());
-
             int rowsInserted = pstmt.executeUpdate();
 
             if (rowsInserted != 0) {
@@ -44,6 +58,20 @@ public class UserDao {
         }
 
         return brandNewUser;
+    }
+
+    public boolean update(String id, double amount){
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()){
+            String sql = "update bank.customers set balance = ? where customer_id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setDouble(1, amount);
+            preparedStatement.setInt(2, Integer.parseInt(id));
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     public boolean isUsernameAvailable(String username) { //boolean is--- is a type of getter.
@@ -107,7 +135,7 @@ public class UserDao {
                 user.setUsername(rs.getString("usernames"));
                 user.setPassword(rs.getString("passwords"));
 
-
+                return user;
             }
 
         } catch (SQLException e) {
@@ -116,6 +144,18 @@ public class UserDao {
 
         return null;
 
+    };
+    public double getBal(String id) {
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+            String sql = "select balance from bank.customers where customer_id=?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, Integer.parseInt(id));
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            return resultSet.getDouble("balance");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return -1;
     }
-
 }

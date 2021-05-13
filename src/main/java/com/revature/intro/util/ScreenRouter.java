@@ -1,6 +1,7 @@
 package com.revature.intro.util;
 
 import com.revature.intro.Screens.Screen;
+import com.revature.intro.models.AppUser;
 
 public class ScreenRouter {
 

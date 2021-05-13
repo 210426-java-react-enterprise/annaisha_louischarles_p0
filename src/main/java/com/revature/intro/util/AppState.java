@@ -5,6 +5,7 @@ import com.revature.intro.Screens.RegisterScreen;
 import com.revature.intro.Screens.TransactionScreen;
 import com.revature.intro.Screens.WelcomeScreen;
 import com.revature.intro.daos.UserDao;
+import com.revature.intro.services.BankAccount;
 import com.revature.intro.services.UserService;
 
 import java.io.BufferedReader;
@@ -16,7 +17,6 @@ public class AppState {
     private ScreenRouter router;
     private boolean appRunning;
     UserService userService;
-
 
 
     public AppState() {
@@ -34,9 +34,11 @@ public class AppState {
         router.addScreen(new WelcomeScreen(br, router))
                 .addScreen(new LoginScreen(br, router, userService))
                 .addScreen(new RegisterScreen(br, router, userService)) //do the same here that you did for Welcome and Login making its instantiation dependent on the router.
-                .addScreen(new TransactionScreen(br, router)) //do the same here that you did for Welcome and Login making its instantiation dependent on the router.
-                .addScreen(new BankAccount(br, router)); //trying to route a transactions screen from LOGIN.
+                .addScreen(new TransactionScreen(br, router)); //do the same here that you did for Welcome and Login making its instantiation dependent on the router.
+
     }
+
+
 
     public BufferedReader getBr() {
         return br;

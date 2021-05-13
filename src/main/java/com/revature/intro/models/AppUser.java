@@ -1,11 +1,10 @@
 package com.revature.intro.models;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 
 public class AppUser { //this is a pojo with getters and setters
-
+    /**
+     *
+     */
 
     private int customerId;
     private String heroStatus;
@@ -21,7 +20,17 @@ public class AppUser { //this is a pojo with getters and setters
         super();
     }
 
-
+    /**
+     * Defines the fields and methods(getters and setters) that compose a user.
+     *
+     * @param heroStatus- this is a value to prequalify to make an account, that the user be a citizen or a hero.
+     * @param firstName - user's personal information.
+     * @param lastName
+     * @param age
+     * @param email
+     * @param username
+     * @param password
+     */
     public AppUser(String heroStatus, String firstName, String lastName, int age, String email, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -37,7 +46,10 @@ public class AppUser { //this is a pojo with getters and setters
         super();
     }
 
-
+    /**
+     *
+     * @return returns username
+     */
     public String getUsername() {
         return username;
     }
@@ -95,8 +107,13 @@ public class AppUser { //this is a pojo with getters and setters
     }
 
     public String getHeroStatus() {
+        if (heroStatus.equalsIgnoreCase("villian") ){System.out.println("Sorry, per our protection clause, " +
+                "villians are not allowed to register..please rob another institution.");} else
+
         return heroStatus;
+        return null;
     }
+
 
     public void setHeroStatus(String heroStatus) {
         this.heroStatus = heroStatus;
@@ -117,24 +134,3 @@ public class AppUser { //this is a pojo with getters and setters
         return sb.toString();
     }
 }
-
-//    public String toFileString() {
-//        return String.format(";%s;%s;%s;%s;%s;%d;%s", firstName, lastName, username, password, email, dob, heroStatus);
-//
-//
-//    } //same as string builder above.
-
-
-//the equivalent to the above is
-//  @Override
-//    public String toString() {
-//        final StringBuilder sb = new StringBuilder("AppUser{");
-//        sb.append("id=").append(id);
-//        sb.append(", username='").append(username).append('\'');
-//        sb.append(", password='").append(password).append('\'');
-//        sb.append(", email='").append(email).append('\'');
-//        sb.append(", firstName='").append(firstName).append('\'');
-//        sb.append(", lastName='").append(lastName).append('\'');
-//        sb.append(", age=").append(age);
-//        sb.append('}');
-//        return sb.toString();

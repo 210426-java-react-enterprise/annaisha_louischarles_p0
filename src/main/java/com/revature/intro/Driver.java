@@ -18,19 +18,6 @@ public class Driver {
             app.getRouter().navigate("/welcome");//this navigate method calls the welcome screens render method!! know this.
         }
 
-        //AppUser brandNewUser = new AppUser("Al", "Capone","acapone@yahoo.com","acapone", "notSketchy", "01_17_1899", 88);
-
-        //try with resources, catches the exception and closes the BufferedReader
-//        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-//            RegisterScreen registerScreen = new RegisterScreen(br);
-//            registerScreen.render();
-//            LoginScreen loginScreen = new LoginScreen(br);
-//            loginScreen.render();
-//        }
-//
-//        catch (Exception e) {
-//            e.printStackTrace();
-//        }
     }
     public static AppState getApp() { //this was statically imported by WelcomeScreen
         //see top imports there. This mimics as if you placed this getting over there. AND the

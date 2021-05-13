@@ -6,6 +6,14 @@ import com.revature.intro.exceptions.ResourcePersistenceException;
 import com.revature.intro.models.AppUser;
 
 public class UserService {
+    /**
+     * Validates input from user- ensures that there are no null inputs and that data received from user
+     * is not duplicitous for email and username.
+     *
+     *
+     */
+
+
 
     private UserDao userDao;
 
@@ -46,7 +54,7 @@ public class UserService {
         if (user.getHeroStatus() == null || user.getHeroStatus().trim().isEmpty() || user.getHeroStatus().equalsIgnoreCase("villian")
                 || user.getHeroStatus().length() > 9)
             return false;
-        if (user.getAge() < 18) return false;
+        if (user.getAge() < 13) return false;
 
         return true;
     }

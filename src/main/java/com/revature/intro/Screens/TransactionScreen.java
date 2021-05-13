@@ -1,26 +1,27 @@
 package com.revature.intro.Screens;
 
+import com.revature.intro.daos.UserDao;
 import com.revature.intro.exceptions.BankAccountException;
-import com.revature.intro.exceptions.InvalidRequestException;
-import com.revature.intro.exceptions.ResourcePersistenceException;
-import com.revature.intro.models.AppUser;
-import com.revature.intro.util.BankAccount;
+import com.revature.intro.services.BankAccount;
 import com.revature.intro.util.ScreenRouter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.text.NumberFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 import static com.revature.intro.Driver.getApp;
 
 public class TransactionScreen extends Screen {
-    // Class Variables
+    /**
+     * The screen is for the user to choose transaction options for navigation, as well as
+     * defining the corresponding methods to be invoked
+     *
+     */
 
     BufferedReader br;
     ScreenRouter router;
     BankAccount bankAccount;
+    UserDao userDao = new UserDao();
+
 
     public TransactionScreen(BufferedReader br, ScreenRouter router, BankAccount bankAccount) {
         super("Transaction Screen", "/transaction");
@@ -38,12 +39,17 @@ public class TransactionScreen extends Screen {
 
     @Override
     public void render() {
-
+        bankAccount = new BankAccount(userDao.getBal(String.valueOf(LoginScreen.currentUser.getCustomerId())));
+        if(bankAccount.getBalance() == -1){
+            System.out.println("Account does not exist");
+            return;
+        }
+        System.out.println("Welcome back Hero! What would you like to do today?");
         System.out.println("\n----- Bank Account Menu ----\n");
         System.out.println("   1. Get balance");
         System.out.println("   2. Deposit");
         System.out.println("   3. Withdraw");
-        System.out.println("   4.  Exit menu");
+        System.out.println("   4. Exit menu");
 
         try {
             System.out.println(">>");
@@ -52,17 +58,18 @@ public class TransactionScreen extends Screen {
             switch (userSelection) {
                 case "1":
                     System.out.println("Current Balance:  ");
-                    System.out.println(bankAccount.getFormattedBalance());
+                    processGetBal();
                     break;
 
                 case "2":
                     processDeposit();
+                    processGetBal();
                     // processDeposit(Double.valueOf(br.readLine())); //not good
                     break;
 
                 case "3":
-                    System.out.println("How much would you like to withdraw? ");
                     processWithdrawal();
+                    processGetBal();
                     break;
 
                 case "4":
@@ -81,11 +88,6 @@ public class TransactionScreen extends Screen {
         }
     }
 
-    private void processWithdrawal() {
-        //to be done.
-
-    }
-
     private void processDeposit() {
         double depositAmount = 0.0;
         String strDeposit = null;
@@ -98,9 +100,8 @@ public class TransactionScreen extends Screen {
             depositAmount = Double.parseDouble(strDeposit); //may change later
 
             // call bankAccount to make deposit
-
             bankAccount.deposit(depositAmount);
-
+            userDao.update(String.valueOf(LoginScreen.currentUser.getCustomerId()), bankAccount.getBalance());
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -110,5 +111,39 @@ public class TransactionScreen extends Screen {
             System.out.println(e.getMessage());
         }
     }
+
+    private void processGetBal() {
+        try {
+            double bal = userDao.getBal(String.valueOf(LoginScreen.currentUser.getCustomerId()));
+            System.out.println("Your balance is: " + bal);
+            render();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void processWithdrawal() {
+        double withdrawalAmount = 0.0;
+        String strWithdrawal = null;
+
+        System.out.println("How much would you like to withdraw?");
+
+        try {
+            System.out.println("\n Enter withdrawal amount:");
+            strWithdrawal = br.readLine();
+            withdrawalAmount = Double.parseDouble((strWithdrawal));
+            bankAccount.withdraw(withdrawalAmount);
+
+            userDao.update(String.valueOf(LoginScreen.currentUser.getCustomerId()), bankAccount.getBalance());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NumberFormatException e) {
+            System.out.println(e.getMessage());
+        } catch (BankAccountException e) {
+            System.out.println(e.getMessage());
+
+        }
+    }
 }
+
 

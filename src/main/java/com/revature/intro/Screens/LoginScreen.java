@@ -11,10 +11,19 @@ import static com.revature.intro.Driver.app;
 
 public class LoginScreen extends Screen {
 
+    /**
+     * Client-side screen to login and enter existing credentials, for access and navigation through application.
+     *
+     *
+     *
+     */
+
+
     BufferedReader br;
     ScreenRouter router;
     UserDao userDao;
     UserService userService;
+    public static AppUser currentUser;
 
     public LoginScreen(BufferedReader br, ScreenRouter router, UserService userService) { //Buffered just reads, and wraps around another reader.
         //super("LoginScreen","/login");
@@ -43,10 +52,10 @@ public class LoginScreen extends Screen {
             //add more constraints to login
             if (username != null && !username.isEmpty() && password != null && !password.isEmpty()) { //Validate its not blank entries!
                 AppUser user = userDao.findUserByUsernameAndPassword(username, password);
-                if (username != null) {
-                    System.out.println("Login Successful!"); //this is the result of a completed welcome screen /login path
-                    //render method invocation
-                    router.navigate("/transaction");
+                currentUser = user;
+                if (user != null) {
+                    System.out.println("Login Successful!");
+                    router.navigate("/transaction");//this is the result of a completed welcome screen /login path
                 } else {
                     System.out.println("Login failed."); // once either successful or failed this method is complete
 
