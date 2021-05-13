@@ -99,7 +99,7 @@ public class TransactionScreen extends Screen {
         try {
             System.out.print("\nEnter deposit: ");
             strDeposit = br.readLine();
-            depositAmount = Double.parseDouble(strDeposit); //may change later
+            depositAmount = Double.parseDouble(strDeposit);
 
             // call bankAccount to make deposit
             bankAccount.deposit(depositAmount);

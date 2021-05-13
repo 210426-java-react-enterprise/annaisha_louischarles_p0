@@ -57,7 +57,7 @@ public class LoginScreen extends Screen {
                     System.out.println("Login Successful!");
                     router.navigate("/transaction");//this is the result of a completed welcome screen /login path
                 } else {
-                    System.out.println("Login failed."); // once either successful or failed this method is complete
+                    System.out.println("Login failed. Please try again"); // once either successful or failed this method is complete
 
                     //and goes back to where it was invoked from at WelcomeScreen router.navigate("/login")
                 }

@@ -156,6 +156,6 @@ public class UserDao {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return -1;
+        return -1; //this provides marker to know method fell through
     }
 }
