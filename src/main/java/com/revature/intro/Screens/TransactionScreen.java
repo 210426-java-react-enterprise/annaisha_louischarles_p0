@@ -7,6 +7,7 @@ import com.revature.intro.util.ScreenRouter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.text.NumberFormat;
 
 import static com.revature.intro.Driver.getApp;
 
@@ -21,6 +22,7 @@ public class TransactionScreen extends Screen {
     ScreenRouter router;
     BankAccount bankAccount;
     UserDao userDao = new UserDao();
+    NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
 
     public TransactionScreen(BufferedReader br, ScreenRouter router, BankAccount bankAccount) {
@@ -115,7 +117,7 @@ public class TransactionScreen extends Screen {
     private void processGetBal() {
         try {
             double bal = userDao.getBal(String.valueOf(LoginScreen.currentUser.getCustomerId()));
-            System.out.println("Your balance is: " + bal);
+            System.out.println("Your balance is: " + formatter.format(bal));
             render();
         }catch (Exception e){
             e.printStackTrace();
