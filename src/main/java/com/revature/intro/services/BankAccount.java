@@ -9,7 +9,7 @@ import java.text.NumberFormat;
 
 public class BankAccount {
     /**
-     *
+     *Does calculations to check users account balance.
      *
      */
 

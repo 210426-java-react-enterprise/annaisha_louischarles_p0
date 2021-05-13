@@ -8,6 +8,10 @@ import static com.revature.intro.Driver.getApp;
 import java.io.BufferedReader;
 
 public class WelcomeScreen extends Screen {
+    /**
+     * Welcome screen for users to initial experience and navigate the application.
+     * Considered the landing page.
+     */
     private BufferedReader br;
     private ScreenRouter router;
 

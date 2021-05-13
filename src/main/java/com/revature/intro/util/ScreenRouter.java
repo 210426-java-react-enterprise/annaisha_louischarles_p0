@@ -4,7 +4,10 @@ import com.revature.intro.Screens.Screen;
 import com.revature.intro.models.AppUser;
 
 public class ScreenRouter {
-
+    /**
+     * Allows for a parsing which screen to choose (route) between. This class defines
+     * the parameters of navigation capabilities.
+     */
     private LinkedList<Screen> screens = new LinkedList<Screen>();
 
     public ScreenRouter addScreen(Screen screen) { //

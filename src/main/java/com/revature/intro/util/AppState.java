@@ -12,7 +12,11 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class AppState {
-
+    /**
+     * Screen consolidation to allow for screen navigation and dependency of data access objects connected
+     * to database.
+     *
+     */
     private BufferedReader br;
     private ScreenRouter router;
     private boolean appRunning;

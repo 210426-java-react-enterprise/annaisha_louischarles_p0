@@ -15,7 +15,7 @@ import java.sql.SQLException;
 /**UserDao: To access and persist data to and from an object relational database postgreSQL.
  *
  *
- * AppUser save(@param: AppUser brandNewUser): method save, as defined in AppUser class sends new user input data to database.
+ * save: method save, as defined in AppUser class sends new user input data to database.
  * @return newUser
  *
  * update:
